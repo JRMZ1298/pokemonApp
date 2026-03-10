@@ -3,10 +3,11 @@ import { CardGridPokemon } from "../../components/CardGridPokemon";
 import { usePokemons } from "../../hooks/usePokemons";
 import { useEffect, useRef } from "react";
 import type { Pokemon } from "../../../interfaces/pokemon.interface";
+import { Loading } from "../../../components/Loading";
 
 export const HomePage: React.FC = () => {
   // Peticion de la informacion con TanStackQuery
-  const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isLoading } =
     usePokemons();
   const divObservado = useRef<HTMLDivElement>(null);
 
@@ -27,6 +28,8 @@ export const HomePage: React.FC = () => {
 
   // La data es trasnformada a tipo Pokemon[]
   const pokemons: Pokemon[] = data?.pages.flat() ?? [];
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
