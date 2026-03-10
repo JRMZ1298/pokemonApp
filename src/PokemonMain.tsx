@@ -1,11 +1,17 @@
-import type { Pokemon } from "./pokemon/interfaces/pokemon.interface";
+import { RouterProvider } from "react-router";
+import { appRouter } from "./app.router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PokemonBackground } from "./components/PokemonBackground";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 export const PokemonMain: React.FC = () => {
-  const pokemons: Pokemon[] = [
-    { name: "Bulbasur", type: "Planta", img: "" },
-    { name: "Picachu", type: "Electrico", img: "" },
-    { name: "Charmander", type: "Fuego", img: "" },
-  ];
-
-  return <div></div>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <PokemonBackground />
+      <RouterProvider router={appRouter} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 };
