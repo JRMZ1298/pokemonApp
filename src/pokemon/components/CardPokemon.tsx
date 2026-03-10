@@ -9,9 +9,9 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import type { Pokemon } from "../../interfaces/pokemon.interface";
 import { useState } from "react";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import type { Pokemon } from "../../interfaces/pokemon.interface";
 
 interface Props {
   pokemon: Pokemon;
@@ -94,7 +94,7 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
       <CardActionArea sx={{ zIndex: 1, background: "transparent" }}>
         <CardMedia
           component="img"
-          image={pokemon.sprites.front_default}
+          image={pokemon.sprites.other?.["official-artwork"].front_default}
           alt={pokemon.name}
           sx={{
             height: 160,
