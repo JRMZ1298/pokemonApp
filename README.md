@@ -10,10 +10,20 @@
 
 1. Ejecutar el comando `npm run dev`
 
+## Diagrama de arquitectura
+
+![Diagrama de arquitectura](public/PokeApp-Arquitectura.png)
+
 ## Capturas de pantalla
 
 Pantalla inicial muestra los primeros 12 pokemon
-![alt text](image.png)
+![Pantalla inicio](public/inicio.png)
 
 Barra de navegación permite modificar los parametros de limit y el offset cuando se da clic en buscar o se presiona Enter.
-![alt text](image-2.png)
+![Barra de navegacion](public/nav-bar.png)
+
+Boton de "cargar mas" permite mostrar mas pokemon en la pagina inicial esta alineado con los parametros de limit y offset
+![Boton cargar mas](public/cargar-mas.png)
+
+Se actualizó el botón de "Cargar más"; ahora se hace la petición cuando se llega al final de la pantalla de manera automática.
+![Scroll Inifinito](public/infinite-scrolling.png)

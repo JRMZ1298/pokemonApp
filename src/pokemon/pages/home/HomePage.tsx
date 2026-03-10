@@ -1,17 +1,50 @@
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { CardGridPokemon } from "../../components/CardGridPokemon";
 import { usePokemons } from "../../hooks/usePokemons";
+import { useEffect, useRef } from "react";
+import type { Pokemon } from "../../../interfaces/pokemon.interface";
 
 export const HomePage: React.FC = () => {
+  // Peticion de la informacion con TanStackQuery
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     usePokemons();
-  const pokemons = data?.pages.flat() ?? [];
+  const divObservado = useRef<HTMLDivElement>(null);
+
+  //El useEffect se utiliza para ejecutar la solicitud de nueva informacion cuando el observer vizualiza en pantalla el div final
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    if (divObservado.current) observer.observe(divObservado.current);
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  // La data es trasnformada a tipo Pokemon[]
+  const pokemons: Pokemon[] = data?.pages.flat() ?? [];
 
   return (
     <>
+      {/* Grid contenedor de las cartas pokemon */}
       <CardGridPokemon pokemons={pokemons} />
 
-      {hasNextPage && (
+      {/* Div observado cuando entra al viewport carga más pokemon*/}
+      <Box ref={divObservado} sx={{ height: 40, gridColumn: "1 / -1" }} />
+
+      {/* Spinner de carga */}
+      {isFetchingNextPage && (
+        <Box sx={{ textAlign: "center", gridColumn: "1 / -1", py: 2 }}>
+          <CircularProgress size={24} sx={{ color: "#4FC3F7" }} />
+        </Box>
+      )}
+
+      {/* Boton de cargar mas */}
+      {/* {hasNextPage && (
         <Box
           sx={{
             gridColumn: "1 / -1",
@@ -44,7 +77,7 @@ export const HomePage: React.FC = () => {
             )}
           </Button>
         </Box>
-      )}
+      )} */}
     </>
   );
 };

@@ -2,21 +2,18 @@ import {
   Box,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Chip,
-  IconButton,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import type { Pokemon } from "../../interfaces/pokemon.interface";
 
 interface Props {
   pokemon: Pokemon;
 }
 
+//Colores dependiendo el type del pokemon mostrado en la tarjeta
 const typeColors: Record<string, string> = {
   fire: "#FF6B35",
   water: "#4FC3F7",
@@ -39,13 +36,13 @@ const typeColors: Record<string, string> = {
 };
 
 export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
   const accentColor = "#4d4d4d";
 
   return (
     <Card
       sx={{
         width: 220,
+        height: 330,
         borderRadius: "20px",
         background: "#1a1a2e",
         boxShadow: `0 8px 32px ${accentColor}33`,
@@ -59,22 +56,22 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
         position: "relative",
       }}
     >
-      {/* Glow circle behind image */}
+      {/* Resplandor detras de la imagen */}
       <Box
         sx={{
           position: "absolute",
           top: 20,
           left: "50%",
           transform: "translateX(-50%)",
-          width: 130,
-          height: 130,
+          width: 230,
+          height: 230,
           borderRadius: "50%",
           background: `radial-gradient(circle, ${accentColor}55 0%, transparent 70%)`,
           zIndex: 0,
         }}
       />
 
-      {/* Pokédex number */}
+      {/* Número de la Pokédex */}
       <Typography
         sx={{
           position: "absolute",
@@ -92,6 +89,7 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
       </Typography>
 
       <CardActionArea sx={{ zIndex: 1, background: "transparent" }}>
+        {/* Imagen del pokemon */}
         <CardMedia
           component="img"
           image={pokemon.sprites.other?.["official-artwork"].front_default}
@@ -107,7 +105,7 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
         />
 
         <CardContent sx={{ pb: 0 }}>
-          {/* Name */}
+          {/* Nombre */}
           <Typography
             variant="h6"
             sx={{
@@ -123,7 +121,7 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
             {pokemon.name}
           </Typography>
 
-          {/* Types */}
+          {/* Tipos */}
           <Box
             sx={{
               display: "flex",
@@ -148,7 +146,7 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
             ))}
           </Box>
 
-          {/* Stats row */}
+          {/* Peso y Altura */}
           <Box
             sx={{
               display: "flex",
@@ -184,28 +182,6 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
           </Box>
         </CardContent>
       </CardActionArea>
-
-      {/* Favorite button */}
-      <CardActions sx={{ justifyContent: "center", pt: 0.5, pb: 1.5 }}>
-        <IconButton
-          onClick={() => setIsFavorite(!isFavorite)}
-          size="small"
-          sx={{
-            color: isFavorite ? "#FF6B6B" : "#ffffff44",
-            transition: "all 0.2s",
-            "&:hover": { color: "#FF6B6B", transform: "scale(1.2)" },
-          }}
-        >
-          {isFavorite ? (
-            <Favorite fontSize="small" />
-          ) : (
-            <FavoriteBorder fontSize="small" />
-          )}
-        </IconButton>
-        <Typography sx={{ fontSize: "0.75rem", color: "#ffffff66" }}>
-          {isFavorite ? "Favorito" : "Agregar"}
-        </Typography>
-      </CardActions>
     </Card>
   );
 };

@@ -2,6 +2,7 @@ import { Box, keyframes } from "@mui/material";
 import type { Pokemon } from "../../interfaces/pokemon.interface";
 import { CardPokemon } from "./CardPokemon";
 
+// Animación para las cartas
 const fadeSlideIn = keyframes`
   from {
     opacity: 0;
@@ -20,7 +21,7 @@ interface Props {
 export const CardGridPokemon: React.FC<Props> = ({ pokemons }) => {
   return (
     <>
-      {/* Grid */}
+      {/* Grid de pokemon */}
       <Box
         sx={{
           display: "grid",
@@ -47,6 +48,7 @@ export const CardGridPokemon: React.FC<Props> = ({ pokemons }) => {
               justifyContent: "center",
             }}
           >
+            {/* Por cada pokemon se genera una carta */}
             <CardPokemon pokemon={pokemon} />
           </Box>
         ))}

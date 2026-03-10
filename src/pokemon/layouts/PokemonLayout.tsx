@@ -1,15 +1,14 @@
 import { Outlet } from "react-router";
 import { CustomHeader } from "../components/CustomHeader";
-// import { CustomFooter } from "../components/CustomFooter";
 
+//Layout de la pagina principal
 export const PokemonLayout = () => {
   return (
     <div className="min-h-screen bg-background">
+      {/* Header/Barra de navegacion */}
       <CustomHeader />
-
+      {/* Contenido principal */}
       <Outlet />
-
-      {/* <CustomFooter /> */}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 
 export const PokemonBackground = () => {
   return (
+    // Fondo de la pagina web
     <Box
       sx={{
         position: "fixed",
@@ -12,7 +13,7 @@ export const PokemonBackground = () => {
         overflow: "hidden",
       }}
     >
-      {/* Grid lines */}
+      {/* Lineas del fondo */}
       <Box
         sx={{
           position: "absolute",
@@ -25,7 +26,7 @@ export const PokemonBackground = () => {
         }}
       />
 
-      {/* Pokéball silhouette top-right */}
+      {/* Pokéball ubicada arriba a la derecha */}
       <Box
         sx={{
           position: "absolute",
@@ -48,7 +49,7 @@ export const PokemonBackground = () => {
         }}
       />
 
-      {/* Pokéball silhouette bottom-left */}
+      {/* Pokéball ubucada abajo a la izquierda */}
       <Box
         sx={{
           position: "absolute",
@@ -61,7 +62,7 @@ export const PokemonBackground = () => {
         }}
       />
 
-      {/* Center radial glow */}
+      {/* Resplandor del centro */}
       <Box
         sx={{
           position: "absolute",
