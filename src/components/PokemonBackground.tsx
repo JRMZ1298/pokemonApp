@@ -8,6 +8,7 @@ export const PokemonBackground = () => {
         position: "fixed",
         inset: 0,
         zIndex: -1,
+        minHeight: "100dvh",
         background:
           "linear-gradient(135deg, #0d0d1a 0%, #0a1628 50%, #0d0d1a 100%)",
         overflow: "hidden",
