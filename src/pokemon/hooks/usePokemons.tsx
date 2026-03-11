@@ -10,8 +10,8 @@ export const usePokemons = () => {
   const [searchParams] = useSearchParams();
 
   // Tomar de los search params el limit y offset para realizar la peticion a la api
-  const limit = Number(searchParams.get("limit"));
-  const offset = Number(searchParams.get("offset"));
+  const limit = Number(searchParams.get("limit")) || 12;
+  const offset = Number(searchParams.get("offset")) || 0;
 
   return useInfiniteQuery({
     queryKey: ["pokemons", { limit, offset }],
