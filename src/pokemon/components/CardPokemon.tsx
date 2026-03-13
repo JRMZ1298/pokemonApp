@@ -7,6 +7,7 @@ import {
   Chip,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router";
 import type { Pokemon } from "../../interfaces/pokemon.interface";
 
 interface Props {
@@ -36,6 +37,7 @@ const typeColors: Record<string, string> = {
 };
 
 export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
+  const navigate = useNavigate();
   const accentColor = "#4d4d4d";
 
   return (
@@ -88,7 +90,10 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
         #{String(pokemon.id).padStart(3, "0")}
       </Typography>
 
-      <CardActionArea sx={{ zIndex: 1, background: "transparent" }}>
+      <CardActionArea
+        onClick={() => navigate(`/pokemon/${pokemon.name}`)}
+        sx={{ zIndex: 1, background: "transparent" }}
+      >
         {/* Imagen del pokemon */}
         <CardMedia
           component="img"

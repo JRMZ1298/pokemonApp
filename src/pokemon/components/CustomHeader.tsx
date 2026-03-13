@@ -9,11 +9,13 @@ import {
   useScrollTrigger,
 } from "@mui/material";
 import { useState } from "react";
-import { Close, Menu } from "@mui/icons-material";
+import { useNavigate } from "react-router";
 import { HeaderControls } from "./HeaderControls";
+import { Close, Menu } from "@mui/icons-material";
 
 export const CustomHeader = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const navigate = useNavigate();
 
   //Trigger para validar cuando ocultar o cuando mostrar la barra de navegacion
   const trigger = useScrollTrigger();
@@ -45,7 +47,9 @@ export const CustomHeader = () => {
                 color: "#fff",
                 textShadow: "0 0 20px #4FC3F766",
                 flexGrow: 1,
+                cursor: "pointer",
               }}
+              onClick={() => navigate("/")}
             >
               Pokédex
             </Typography>
@@ -105,7 +109,9 @@ export const CustomHeader = () => {
               color: "#fff",
               textTransform: "uppercase",
               textShadow: "0 0 20px #4FC3F766",
+              cursor: "pointer",
             }}
+            onClick={() => navigate("/")}
           >
             Pokédex
           </Typography>

@@ -6,39 +6,49 @@ export interface Pokemon {
   sprites: Sprites;
   types: Type[];
   weight: number;
+  movesDetails: MoveDetails[];
 }
 
-export interface Species {
+interface FinalInfo {
   name: string;
   url: string;
 }
 
-export interface Move {
-  move: Species;
-  version_group_details: VersionGroupDetail[];
+interface Move {
+  move: FinalInfo;
 }
 
-export interface VersionGroupDetail {
-  level_learned_at: number;
-  move_learn_method: Species;
-  order: number | null;
-  version_group: Species;
-}
-
-export interface Other {
+interface Other {
   "official-artwork": OfficialArtwork;
 }
 
-export interface Sprites {
+interface Sprites {
   other?: Other;
 }
 
-export interface OfficialArtwork {
+interface OfficialArtwork {
   front_default: string;
   front_shiny: string;
 }
 
-export interface Type {
+interface Type {
   slot: number;
-  type: Species;
+  type: FinalInfo;
+}
+
+export interface MoveDetails {
+  id: number;
+  names: Name[];
+  power: number;
+  pp: number;
+  accuracy: number;
+  damage_class: FinalInfo;
+  priority: number;
+  target: FinalInfo;
+  type: FinalInfo;
+}
+
+interface Name {
+  language: FinalInfo;
+  name: string;
 }
