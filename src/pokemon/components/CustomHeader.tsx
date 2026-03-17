@@ -9,7 +9,7 @@ import {
   useScrollTrigger,
 } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { HeaderControls } from "./HeaderControls";
 import { Close, Menu } from "@mui/icons-material";
 
@@ -19,6 +19,9 @@ export const CustomHeader = () => {
 
   //Trigger para validar cuando ocultar o cuando mostrar la barra de navegacion
   const trigger = useScrollTrigger();
+
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
     <>
@@ -54,23 +57,27 @@ export const CustomHeader = () => {
               Pokédex
             </Typography>
 
-            <Box
-              sx={{
-                display: { xs: "none", sm: "flex" },
-                gap: 2,
-                alignItems: "center",
-              }}
-            >
-              <HeaderControls setDrawerOpen={setDrawerOpen} />
-            </Box>
+            {isHome && (
+              <>
+                <Box
+                  sx={{
+                    display: { xs: "none", sm: "flex" },
+                    gap: 2,
+                    alignItems: "center",
+                  }}
+                >
+                  <HeaderControls setDrawerOpen={setDrawerOpen} />
+                </Box>
 
-            {/* Icono de Menu */}
-            <IconButton
-              onClick={() => setDrawerOpen(true)}
-              sx={{ display: { xs: "flex", sm: "none" }, color: "#4FC3F7" }}
-            >
-              <Menu />
-            </IconButton>
+                {/* Icono de Menu */}
+                <IconButton
+                  onClick={() => setDrawerOpen(true)}
+                  sx={{ display: { xs: "flex", sm: "none" }, color: "#4FC3F7" }}
+                >
+                  <Menu />
+                </IconButton>
+              </>
+            )}
           </Toolbar>
         </AppBar>
       </Slide>
