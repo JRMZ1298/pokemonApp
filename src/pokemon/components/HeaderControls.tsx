@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { useRef } from "react";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
+import { useAuthStore } from "../../auth/store/auth.store";
 
 interface Props {
   setDrawerOpen: (value: boolean) => void;
@@ -10,6 +11,9 @@ export const HeaderControls: React.FC<Props> = ({ setDrawerOpen }) => {
   const limitRef = useRef<HTMLInputElement>(null);
   const offsetRef = useRef<HTMLInputElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const { user, logout } = useAuthStore();
 
   /**
    * Función para actualizar los searchParams de limit u offset cuando se presiono Enter o se dio clic en el boton de Buscar
@@ -88,6 +92,56 @@ export const HeaderControls: React.FC<Props> = ({ setDrawerOpen }) => {
       >
         Buscar
       </Button>
+
+      {/* Button de login */}
+      {!user && (
+        <Button
+          onClick={() => navigate("/auth")}
+          variant="outlined"
+          size="small"
+          sx={{
+            borderColor: "rgba(247, 79, 79, 0.4)",
+            color: "#f74f4f",
+            fontWeight: 700,
+            letterSpacing: 1,
+            textTransform: "uppercase",
+            fontFamily: "monospace",
+            px: 2,
+            "&:hover": {
+              borderColor: "#f74f4f",
+              background: "rgba(247, 79, 79, 0.08)",
+            },
+          }}
+        >
+          Acceder
+        </Button>
+      )}
+      {/* Button de logout */}
+      {user && (
+        <Button
+          onClick={() => {
+            logout();
+            navigate("/");
+          }}
+          variant="outlined"
+          size="small"
+          sx={{
+            borderColor: "rgba(247, 79, 79, 0.4)",
+            color: "#f74f4f",
+            fontWeight: 700,
+            letterSpacing: 1,
+            textTransform: "uppercase",
+            fontFamily: "monospace",
+            px: 2,
+            "&:hover": {
+              borderColor: "#f74f4f",
+              background: "rgba(247, 79, 79, 0.08)",
+            },
+          }}
+        >
+          Salir
+        </Button>
+      )}
     </>
   );
 };

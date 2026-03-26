@@ -2,13 +2,18 @@ import {
   Box,
   Card,
   CardActionArea,
+  CardActions,
   CardContent,
   CardMedia,
   Chip,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router";
 import type { Pokemon } from "../../interfaces/pokemon.interface";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { useState } from "react";
+import { useAuthStore } from "../../auth/store/auth.store";
 
 interface Props {
   pokemon: Pokemon;
@@ -38,13 +43,16 @@ const typeColors: Record<string, string> = {
 
 export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
   const navigate = useNavigate();
+  const { user } = useAuthStore();
   const accentColor = "#4d4d4d";
+
+  const [isFavorite, setIsFavorite] = useState(false);
 
   return (
     <Card
       sx={{
         width: 220,
-        height: 330,
+        minHeight: 330,
         borderRadius: "20px",
         background: "#1a1a2e",
         boxShadow: `0 8px 32px ${accentColor}33`,
@@ -187,6 +195,29 @@ export const CardPokemon: React.FC<Props> = ({ pokemon }) => {
           </Box>
         </CardContent>
       </CardActionArea>
+      {/* Favorite button */}
+      {user && (
+        <CardActions sx={{ justifyContent: "center", pt: 0.5, pb: 1.5 }}>
+          <IconButton
+            onClick={() => setIsFavorite(!isFavorite)}
+            size="small"
+            sx={{
+              color: isFavorite ? "#FF6B6B" : "#ffffff44",
+              transition: "all 0.2s",
+              "&:hover": { color: "#FF6B6B", transform: "scale(1.2)" },
+            }}
+          >
+            {isFavorite ? (
+              <Favorite fontSize="small" />
+            ) : (
+              <FavoriteBorder fontSize="small" />
+            )}
+          </IconButton>
+          <Typography sx={{ fontSize: "0.75rem", color: "#ffffff66" }}>
+            {isFavorite ? "Favorito" : "Agregar"}
+          </Typography>
+        </CardActions>
+      )}
     </Card>
   );
 };
